@@ -14,9 +14,7 @@ function App() {
   }, [])
 
   function deleteItem(id) {
-    console.log(id);
     setData(data.filter((item)=>item.id!==id));
-    console.log(data);
   }
 
   return (
