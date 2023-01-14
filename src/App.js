@@ -1,17 +1,22 @@
 import './App.css';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 function App() {
   const [data, setData] = useState(null);
   const [search, setSearch] = useState("");
 
-  axios.get("https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json")
-      .then((res)=>setData(res.data))
-      .catch((err)=>console.log(err))
-  
+
+  useEffect(() => {
+      axios.get("https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json")
+        .then((res)=>setData(res.data))
+        .catch((err)=>console.log(err))  
+  }, [])
+
   function deleteItem(id) {
     console.log(id);
+    setData(data.filter((item)=>item.id!==id));
+    console.log(data);
   }
 
   return (
