@@ -2,7 +2,14 @@ import React from 'react';
 import { useGlobalContext } from './Context';
 
 const Stories = () => {
-    const {hits,nbPages } = useGlobalContext();
+    const {hits,nbPages,isLoading } = useGlobalContext();
+
+    if(isLoading){
+      return(
+      <>
+        Loading...
+      </>);
+    }
     return (
       <>
       {hits &&
@@ -13,7 +20,7 @@ const Stories = () => {
                       <th>Email</th>
                       <th>Role</th>
                       <th>Actions</th>
-                    </tr>
+                    </tr> 
                   </thead>
                   <tbody>
                   {hits.map((user)=>(

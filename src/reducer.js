@@ -3,10 +3,15 @@ const reducer=(state,action)=>{
         case "GET_STORIES":
             return{
                 ...state,
+                isLoading:false,
                 hits:action.payload.hits,
                 nbPages:action.payload.nbPages 
             };
-            break;
+        case "SET_LOADING":
+            return{
+                ...state,
+              isLoading:true,
+            };
         default:
             break;
     }

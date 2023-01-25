@@ -16,6 +16,8 @@ const AppProvider = ({children})=>{
     const [state, dispatch] = useReducer(reducer, initialState);
 
     function getAPIdata() {
+        dispatch({type:"SET_LOADING"}); 
+
       axios.get(API)
         .then((res)=>{
           dispatch({
