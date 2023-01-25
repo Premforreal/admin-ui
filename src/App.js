@@ -10,7 +10,6 @@ function App() {
  const data  = useGlobalContext();
   return (
     <>
-    {data}
     <Search/>
     <Stories/>
     <Pagination/>

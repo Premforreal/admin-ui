@@ -1,27 +1,34 @@
-import React,{useEffect} from 'react'
-import axios from 'axios';
+import React from 'react';
+import { useGlobalContext } from './Context';
 
 const Stories = () => {
-  const API = "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json";
-
-  function getAPIdata() {
-    axios.get(API)
-      .then((res)=>{
-        console.log(res.data)
-      })
-      .catch((err)=>{
-      console.log(err)
-      }); 
-  }
-
-  useEffect(() => {
-    getAPIdata();
-  }, [])
-  
-
-  return (
-    <div>Stories</div>
-  )
+    const {hits,nbPages } = useGlobalContext();
+    return (
+      <>
+      {hits &&
+              <table>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Role</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {hits.map((user)=>(
+                      <tr key={user.id}>
+                        <td>{user.name}</td>
+                        <td>{user.email}</td>
+                        <td>{user.role}</td>
+                        <td>actions</td>
+                      </tr>
+                  ))}
+                  </tbody>
+              </table>
+              }
+      </>
+    )
 };
 
 export default Stories
