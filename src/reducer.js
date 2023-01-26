@@ -19,6 +19,11 @@ const reducer=(state,action)=>{
                     return curElem.id!==action.payload;
                 }), 
             };
+        case "SEARCH_QUERY":
+            return{
+                ...state,
+                query: action.payload,
+            };
         default:
             break;
     }

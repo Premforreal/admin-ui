@@ -2,7 +2,7 @@ import React from 'react';
 import { useGlobalContext } from './Context';
 
 const Stories = () => {
-    const {hits,nbPages,isLoading, removePost } = useGlobalContext();
+    const {hits,query,nbPages,isLoading, removePost } = useGlobalContext();
 
     if(isLoading){
       return(
@@ -23,7 +23,14 @@ const Stories = () => {
                     </tr> 
                   </thead>
                   <tbody>
-                  {hits.map((user)=>(
+                  {hits.filter((item)=>{
+                      const search = query.replaceAll(' ', '').toLowerCase();
+                      if( item.name.replaceAll(' ', '').toLowerCase().includes(search) ||
+                          item.email.replaceAll(' ', '').toLowerCase().includes(search) ||
+                          item.role.replaceAll(' ', '').toLowerCase().includes(search)){
+                            return item
+                          }
+                  }).map((user)=>(
                       <tr key={user.id}>
                         <td>{user.name}</td>
                         <td>{user.email}</td>

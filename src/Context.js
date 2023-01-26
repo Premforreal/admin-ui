@@ -4,6 +4,7 @@ import reducer from "./reducer";
 
 const initialState = {
     isLoading:true,
+    query: "",
     nbPages:0,
     page:0,
     hits:[]
@@ -32,6 +33,11 @@ const AppProvider = ({children})=>{
         }) 
     }
 
+    
+    useEffect(() => {
+        getAPIdata();
+      }, []);
+
     //to remove user
     function removePost(ID) {
         dispatch({
@@ -39,13 +45,17 @@ const AppProvider = ({children})=>{
             payload:ID
         });
     }
-  
-    useEffect(() => {
-      getAPIdata();
-    }, []);
+
+    //search
+    function searchPost(SearchQuery) {
+        dispatch({
+            type:"SEARCH_QUERY",
+            payload:SearchQuery
+        });
+    }
 
     return(
-        <AppContext.Provider value={{...state,removePost}}>
+        <AppContext.Provider value={{...state,removePost,searchPost}}>
             {children}
         </AppContext.Provider>
     )
