@@ -17,20 +17,27 @@ const AppProvider = ({children})=>{
 
     function getAPIdata() {
         dispatch({type:"SET_LOADING"}); 
+        axios.get(API)
+            .then((res)=>{
+                dispatch(
+                    {
+                        type:"GET_STORIES",
+                        payload:{
+                            hits:res.data,
+                            nbPages:Math.ceil(res.data.length/10),
+                    }
+                })
+        }).catch((err)=>{
+            console.log(err)
+        }) 
+    }
 
-      axios.get(API)
-        .then((res)=>{
-          dispatch({
-            type:"GET_STORIES",
-            payload:{
-                hits:res.data,
-                nbPages:Math.ceil(res.data.length/10),
-            }
+    //to remove user
+    function removePost(ID) {
+        dispatch({
+            type:"REMOVE_POST",
+            payload:ID
         });
-        })
-        .catch((err)=>{
-        console.log(err)
-        }); 
     }
   
     useEffect(() => {
@@ -38,7 +45,7 @@ const AppProvider = ({children})=>{
     }, []);
 
     return(
-        <AppContext.Provider value={{...state}}>
+        <AppContext.Provider value={{...state,removePost}}>
             {children}
         </AppContext.Provider>
     )

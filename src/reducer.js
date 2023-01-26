@@ -12,6 +12,13 @@ const reducer=(state,action)=>{
                 ...state,
               isLoading:true,
             };
+        case "REMOVE_POST":
+            return{
+                ...state,
+                hits:state.hits.filter((curElem)=>{
+                    return curElem.id!==action.payload;
+                }), 
+            };
         default:
             break;
     }

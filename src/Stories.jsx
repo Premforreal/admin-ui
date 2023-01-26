@@ -2,7 +2,7 @@ import React from 'react';
 import { useGlobalContext } from './Context';
 
 const Stories = () => {
-    const {hits,nbPages,isLoading } = useGlobalContext();
+    const {hits,nbPages,isLoading, removePost } = useGlobalContext();
 
     if(isLoading){
       return(
@@ -28,7 +28,9 @@ const Stories = () => {
                         <td>{user.name}</td>
                         <td>{user.email}</td>
                         <td>{user.role}</td>
-                        <td>actions</td>
+                        <td>
+                          <button onClick={()=>removePost(user.id)}>delete</button>
+                        </td>
                       </tr>
                   ))}
                   </tbody>
