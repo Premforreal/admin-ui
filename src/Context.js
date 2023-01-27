@@ -6,7 +6,7 @@ const initialState = {
     isLoading:true,
     query: "",
     nbPages:0,
-    page:0,
+    page:1,
     hits:[]
 };
 const AppContext = React.createContext();
@@ -46,6 +46,14 @@ const AppProvider = ({children})=>{
         });
     }
 
+    //to edit user
+    function editPost(ID) {
+        dispatch({
+            type:"EDIT_POST",
+            payload:ID
+        });
+    }
+
     //search
     function searchPost(SearchQuery) {
         dispatch({
@@ -54,8 +62,27 @@ const AppProvider = ({children})=>{
         });
     }
 
+    //pagination
+    function getNextPage() {
+        dispatch({
+            type:"NEXT_PAGE",
+        });
+    }
+    function getPrevPage() {
+        dispatch({
+            type:"PREV_PAGE",
+        });
+    }
+    function goToPage(number) {
+        console.log(number);
+        dispatch({
+            type:"GO_TO_PAGE",
+            payload:number
+        });
+    }
+
     return(
-        <AppContext.Provider value={{...state,removePost,searchPost}}>
+        <AppContext.Provider value={{...state,removePost,editPost,searchPost,getNextPage,getPrevPage,goToPage}}>
             {children}
         </AppContext.Provider>
     )
