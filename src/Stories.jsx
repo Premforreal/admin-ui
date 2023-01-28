@@ -2,8 +2,10 @@ import React,{useState,useEffect} from 'react';
 import { useGlobalContext } from './Context';
 
 const Stories = () => {
-    const {hits,query,nbPages,isLoading,removePost} = useGlobalContext();
+    const {hits,IDARRAY,query,nbPages,isLoading,removePost,removeMultiple} = useGlobalContext();
     const [isEditing, setIsEditing] = useState(false);
+    const [checked, setChecked] = useState(new Array(100).fill(false));
+    const [masterCheck, setMasterCheck] = useState(false);
     const [formData, setFormData] = useState({
       id:"",
       email:'',
@@ -34,6 +36,39 @@ const Stories = () => {
       }
     }
 
+    function removeMultipleHelper(id) {
+      IDARRAY.includes(id) 
+        ? IDARRAY.splice(IDARRAY.indexOf(id), 1) 
+        : IDARRAY.push(id);
+    }
+
+    function selectAll() {
+      setMasterCheck(!masterCheck);
+      if(!masterCheck){
+        for (let i = 0; i < hits.length; i++) {
+          IDARRAY.push(hits[i].id);
+        }
+      }
+      else{
+        while (IDARRAY.length>0) {
+          IDARRAY.pop();
+        }
+      }
+      let arr = checked.map((item)=>!masterCheck);
+      setChecked(arr);
+    }
+
+    function checkHelper(id) {
+      let arr = [];
+      for (let i = 0; i < checked.length; i++) 
+      {
+          i+1==id 
+              ? arr.push(!checked[i]) 
+              : arr.push(checked[i])
+      }
+      setChecked(arr);
+    }
+
     if(isLoading){
       return(
       <>
@@ -51,9 +86,20 @@ const Stories = () => {
         </form>
       }
       {hits &&
+          <> 
+          <button onClick={()=>{
+                  removeMultiple(IDARRAY);
+                  setMasterCheck(false);
+                  }}>Delete selected</button>
               <table>
                   <thead>
                     <tr>
+                      <th>
+                        <input  type="checkbox" 
+                                checked={masterCheck}
+                                onChange={selectAll}
+                                />
+                      </th>
                       <th>Name</th>
                       <th>Email</th>
                       <th>Role</th>
@@ -72,6 +118,13 @@ const Stories = () => {
                   })
                   .map((user)=>(
                       <tr key={user.id}>
+                        <td>
+                          <input  type="checkbox"
+                                  checked={checked[parseInt(user.id)-1]}
+                                  onChange={()=>removeMultipleHelper(user.id)}
+                                  onClick={()=>checkHelper(parseInt(user.id))}
+                          />
+                        </td>
                         <td>{user.name}</td>
                         <td>{user.email}</td>
                         <td>{user.role}</td>
@@ -83,7 +136,9 @@ const Stories = () => {
                   ))}
                   </tbody>
               </table>
+              </>
               }
+
       </>
     )
 };

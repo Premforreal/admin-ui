@@ -20,6 +20,14 @@ const reducer=(state,action)=>{
                 }),
                 nbPages:Math.ceil(state.hits.length/10) 
             };
+        case "REMOVE_MULTIPLE":
+            return{
+                ...state,
+                hits:state.hits.filter((curElem)=>{
+                    return(!action.payload.includes(curElem.id));
+                }),
+                nbPages:Math.ceil(state.hits.length/10) 
+            };
         case "EDIT_POST":
             return{
                 ...state,

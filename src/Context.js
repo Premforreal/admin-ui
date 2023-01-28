@@ -7,7 +7,8 @@ const initialState = {
     query: "",
     nbPages:0,
     page:1,
-    hits:[]
+    hits:[],
+    IDARRAY:[]
 };
 const AppContext = React.createContext();
 const API = "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json";
@@ -46,11 +47,11 @@ const AppProvider = ({children})=>{
         });
     }
 
-    //to edit user
-    function editPost(ID) {
+    //to remove multiple users
+    function removeMultiple(IDARRAY) {
         dispatch({
-            type:"EDIT_POST",
-            payload:ID
+            type:"REMOVE_MULTIPLE",
+            payload:IDARRAY
         });
     }
 
@@ -74,7 +75,6 @@ const AppProvider = ({children})=>{
         });
     }
     function goToPage(number) {
-        console.log(number);
         dispatch({
             type:"GO_TO_PAGE",
             payload:number
@@ -82,7 +82,7 @@ const AppProvider = ({children})=>{
     }
 
     return(
-        <AppContext.Provider value={{...state,removePost,editPost,searchPost,getNextPage,getPrevPage,goToPage}}>
+        <AppContext.Provider value={{...state,removePost,removeMultiple,searchPost,getNextPage,getPrevPage,goToPage}}>
             {children}
         </AppContext.Provider>
     )
