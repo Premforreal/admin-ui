@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react';
 import { useGlobalContext } from './Context';
 
 const Stories = () => {
-    const {hits,IDARRAY,query,nbPages,isLoading,removePost,removeMultiple} = useGlobalContext();
+    const {hits,IDARRAY,query,page,nbPages,isLoading,removePost,removeMultiple} = useGlobalContext();
     const [isEditing, setIsEditing] = useState(false);
     const [checked, setChecked] = useState(new Array(100).fill(false));
     const [masterCheck, setMasterCheck] = useState(false);
@@ -13,7 +13,7 @@ const Stories = () => {
       role:''
     });
     const {id,email,name,role} = formData;
-    
+
     function onChange(e){
       setFormData((prevState)=>({
         ...prevState, 
@@ -60,8 +60,7 @@ const Stories = () => {
 
     function checkHelper(id) {
       let arr = [];
-      for (let i = 0; i < checked.length; i++) 
-      {
+      for (let i = 0; i < checked.length; i++) {
           i+1==id 
               ? arr.push(!checked[i]) 
               : arr.push(checked[i])
@@ -116,6 +115,7 @@ const Stories = () => {
                             return item;
                           }
                   })
+                  .slice(page*10-10,page*10)
                   .map((user)=>(
                       <tr key={user.id}>
                         <td>

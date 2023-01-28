@@ -57,6 +57,11 @@ const reducer=(state,action)=>{
                 ...state,
                 page:state.page+1
             }
+        case "GO_TO_PAGE":
+            return{
+                ...state,
+                page:action.payload
+            }
         default:
             break;
     }
