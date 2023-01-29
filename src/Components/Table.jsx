@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 import { useGlobalContext } from '../Context/Context';
 
 const Table = () => {

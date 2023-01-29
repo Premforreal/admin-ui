@@ -7,6 +7,7 @@ const Search = () => {
     <>
       <h1>Admin UI</h1>
       <p>handle errors</p>
+      <p>add loading component</p>
       <form onSubmit={(e)=>e.preventDefault()}>
          <input type="text" 
                 placeholder='search by name, email or role' 

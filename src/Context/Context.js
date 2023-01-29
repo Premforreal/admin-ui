@@ -81,7 +81,8 @@ const AppProvider = ({children})=>{
     }
 
     return(
-        <AppContext.Provider value={{...state,removePost,removeMultiple,searchPost,getNextPage,getPrevPage,goToPage}}>
+        <AppContext.Provider 
+            value={{...state,removePost,removeMultiple,searchPost,getNextPage,getPrevPage,goToPage}}>
             {children}
         </AppContext.Provider>
     )

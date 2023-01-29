@@ -2,7 +2,7 @@ import React from 'react';
 import { useGlobalContext } from '../Context/Context';
 
 const Pagination = () => {
-  const {hits,page,nbPages,getPrevPage,getNextPage,goToPage} = useGlobalContext();
+  const {data,page,nbPages,getPrevPage,getNextPage,goToPage} = useGlobalContext();
   let pageNumbers = [];
   for (let i = 1; i < nbPages+1; i++) {
     pageNumbers.push(i);
