@@ -7,7 +7,7 @@ const initialState = {
     query: "",
     nbPages:0,
     page:1,
-    hits:[],
+    data:[],
     IDARRAY:[]
 };
 const AppContext = React.createContext();
@@ -25,7 +25,7 @@ const AppProvider = ({children})=>{
                     {
                         type:"GET_STORIES",
                         payload:{
-                            hits:res.data,
+                            data:res.data,
                             nbPages:Math.ceil(res.data.length/10),
                     }
                 })

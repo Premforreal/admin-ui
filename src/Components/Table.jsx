@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from 'react';
-import { useGlobalContext } from './Context';
+import { useGlobalContext } from '../Context/Context';
 
-const Stories = () => {
-    const {hits,IDARRAY,query,page,nbPages,isLoading,removePost,removeMultiple} = useGlobalContext();
+const Table = () => {
+    const {data,IDARRAY,query,page,isLoading,removePost,removeMultiple} = useGlobalContext();
     const [isEditing, setIsEditing] = useState(false);
     const [checked, setChecked] = useState(new Array(100).fill(false));
     const [masterCheck, setMasterCheck] = useState(false);
@@ -24,9 +24,9 @@ const Stories = () => {
     function onSubmit(e){
       e.preventDefault();
       setIsEditing(false);
-      for (let i = 0; i < hits.length; i++) {
-        if(formData.id===hits[i].id){
-            hits[i]=formData;
+      for (let i = 0; i < data.length; i++) {
+        if(formData.id===data[i].id){
+            data[i]=formData;
         }
       }
     }
@@ -45,9 +45,9 @@ const Stories = () => {
     function selectAll() {
       setMasterCheck(!masterCheck);
       if(!masterCheck){
-        for (let i = 0; i < hits.length; i++) {
+        for (let i = 0; i < data.length; i++) {
           if (i>=(page*10-10) && (i<page*10)) {
-            IDARRAY.push(hits[i].id); 
+            IDARRAY.push(data[i].id); 
           }
         }
       }
@@ -86,14 +86,8 @@ const Stories = () => {
           <button type='submit'>Submit</button>
         </form>
       }
-      {hits &&
+      {data &&
           <> 
-          <button onClick={()=>{
-                  setMasterCheck(false);
-                  setChecked(new Array(100).fill(false));
-                  removeMultiple(IDARRAY);
-                  IDARRAY.length = 0;
-                  }}>Delete selected</button>
               <table>
                   <thead>
                     <tr>
@@ -110,7 +104,7 @@ const Stories = () => {
                     </tr> 
                   </thead>
                   <tbody>
-                  {hits
+                  {data
                   .filter((item)=>{
                       const search = query.replaceAll(' ', '').toLowerCase();
                       if( item.name.replaceAll(' ', '').toLowerCase().includes(search)  ||
@@ -142,9 +136,15 @@ const Stories = () => {
               </table>
               </>
               }
-
+          <button onClick={()=>{
+                  setMasterCheck(false);
+                  setChecked(new Array(100).fill(false));
+                  removeMultiple(IDARRAY);
+                  IDARRAY.length = 0;
+                  }}>Delete selected
+          </button>
       </>
     )
 };
 
-export default Stories
+export default Table;

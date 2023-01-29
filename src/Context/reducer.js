@@ -4,7 +4,7 @@ const reducer=(state,action)=>{
             return{
                 ...state,
                 isLoading:false,
-                hits:action.payload.hits,
+                data:action.payload.data,
                 nbPages:action.payload.nbPages 
             };
         case "SET_LOADING":
@@ -15,15 +15,15 @@ const reducer=(state,action)=>{
         case "REMOVE_POST":
             return{
                 ...state,
-                hits:state.hits.filter((curElem)=>{
+                data:state.data.filter((curElem)=>{
                     return curElem.id!==action.payload;
                 }),
-                nbPages:Math.ceil(state.hits.length/10) 
+                nbPages:Math.ceil(state.data.length/10) 
             };
         case "EDIT_POST":
             return{
                 ...state,
-                hits:state.hits.filter((curElem)=>{
+                data:state.data.filter((curElem)=>{
                     return curElem
                 }), 
             };
@@ -31,7 +31,7 @@ const reducer=(state,action)=>{
             return{
                 ...state,
                 query: action.payload,
-                nbPages:Math.ceil(state.hits.length/10)
+                nbPages:Math.ceil(state.datas.length/10)
             };
         case "PREV_PAGE":
             if(state.page<=1){

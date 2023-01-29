@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGlobalContext } from './Context';
+import { useGlobalContext } from '../Context/Context';
 
 const Pagination = () => {
   const {hits,page,nbPages,getPrevPage,getNextPage,goToPage} = useGlobalContext();
