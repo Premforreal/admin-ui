@@ -49,10 +49,9 @@ const AppProvider = ({children})=>{
 
     //to remove multiple users
     function removeMultiple(IDARRAY) {
-        dispatch({
-            type:"REMOVE_MULTIPLE",
-            payload:IDARRAY
-        });
+        while (IDARRAY.length>0) {
+            removePost(IDARRAY.pop());
+        }
     }
 
     //search

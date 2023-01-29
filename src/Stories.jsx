@@ -20,11 +20,6 @@ const Stories = () => {
           [e.target.name]:e.target.value,
       }))
     }
-    
-    function editPost(user) {
-      setIsEditing(true);
-      setFormData(user);
-    }
 
     function onSubmit(e){
       e.preventDefault();
@@ -34,6 +29,11 @@ const Stories = () => {
             hits[i]=formData;
         }
       }
+    }
+
+    function editPost(user) {
+      setIsEditing(true);
+      setFormData(user);
     }
 
     function removeMultipleHelper(id) {
@@ -46,7 +46,9 @@ const Stories = () => {
       setMasterCheck(!masterCheck);
       if(!masterCheck){
         for (let i = 0; i < hits.length; i++) {
-          IDARRAY.push(hits[i].id);
+          if (i>=(page*10-10) && (i<page*10)) {
+            IDARRAY.push(hits[i].id); 
+          }
         }
       }
       else{
@@ -54,7 +56,7 @@ const Stories = () => {
           IDARRAY.pop();
         }
       }
-      let arr = checked.map((item)=>!masterCheck);
+      let arr =checked.map((item)=>!masterCheck);
       setChecked(arr);
     }
 
@@ -87,8 +89,10 @@ const Stories = () => {
       {hits &&
           <> 
           <button onClick={()=>{
-                  removeMultiple(IDARRAY);
                   setMasterCheck(false);
+                  setChecked(new Array(100).fill(false));
+                  removeMultiple(IDARRAY);
+                  IDARRAY.length = 0;
                   }}>Delete selected</button>
               <table>
                   <thead>
