@@ -31,7 +31,7 @@ const reducer=(state,action)=>{
             return{
                 ...state,
                 query: action.payload,
-                nbPages:Math.ceil(state.datas.length/10)
+                nbPages:Math.ceil(state.data.length/10)
             };
         case "PREV_PAGE":
             if(state.page<=1){

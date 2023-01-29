@@ -4,10 +4,7 @@ import { useGlobalContext } from '../Context/Context';
 const Search = () => {
   const {query,searchPost} = useGlobalContext();  
   return (
-    <>
-      <h1>Admin UI</h1>
-      <p>handle errors</p>
-      <p>add loading component</p>
+    <div className='search'>
       <form onSubmit={(e)=>e.preventDefault()}>
          <input type="text" 
                 placeholder='search by name, email or role' 
@@ -15,7 +12,7 @@ const Search = () => {
                 onChange={(e)=>searchPost(e.target.value)}
           />
       </form>
-    </>
+    </div>
   )
 }
 

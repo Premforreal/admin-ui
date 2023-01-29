@@ -1,5 +1,7 @@
 import React,{useState} from 'react';
 import { useGlobalContext } from '../Context/Context';
+import Delete from '@mui/icons-material/DeleteOutline';
+import Edit from '@mui/icons-material/Edit';
 
 const Table = () => {
     const {data,IDARRAY,query,page,isLoading,removePost,removeMultiple} = useGlobalContext();
@@ -78,17 +80,19 @@ const Table = () => {
     }
     return (
       <>
-      {isEditing &&       
-        <form onSubmit={onSubmit}>
-          <input type='text' name='name' value={name} placeholder='Enter name' onChange={onChange} />
-          <input type='text' name='email' value={email} placeholder='Enter your email' onChange={onChange} />
-          <input type='text' name='role' value={role} placeholder='Enter your role' onChange={onChange} />
-          <button type='submit'>Submit</button>
-        </form>
+      {isEditing &&
+        <div className="editing">
+          <form onSubmit={onSubmit}>
+            <input type='text' name='name' value={name} placeholder='Enter name' onChange={onChange} />
+            <input type='text' name='email' value={email} placeholder='Enter your email' onChange={onChange} />
+            <input type='text' name='role' value={role} placeholder='Enter your role' onChange={onChange} />
+            <button type='submit'>Submit</button>
+          </form>
+        </div>       
       }
       {data &&
           <> 
-              <table>
+              <table className='table'>
                   <thead>
                     <tr>
                       <th>
@@ -115,7 +119,7 @@ const Table = () => {
                   })
                   .slice(page*10-10,page*10)
                   .map((user)=>(
-                      <tr key={user.id}>
+                      <tr key={user.id} >
                         <td>
                           <input  type="checkbox"
                                   checked={checked[parseInt(user.id)-1]}
@@ -127,8 +131,8 @@ const Table = () => {
                         <td>{user.email}</td>
                         <td>{user.role}</td>
                         <td>
-                          <button onClick={()=>editPost(user)}>Edit</button>
-                          <button onClick={()=>removePost(user.id)}>delete</button>
+                          <Edit className='edit' onClick={()=>editPost(user)} ></Edit>
+                          <Delete className='delete' onClick={()=>removePost(user.id)} ></Delete>
                         </td>
                       </tr>
                   ))}
@@ -136,7 +140,8 @@ const Table = () => {
               </table>
               </>
               }
-          <button onClick={()=>{
+          <button className='delete-selected' 
+            onClick={()=>{
                   setMasterCheck(false);
                   setChecked(new Array(100).fill(false));
                   removeMultiple(IDARRAY);

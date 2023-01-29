@@ -9,19 +9,21 @@ const Pagination = () => {
   }
 
   return (
-    <div>
-      <button onClick={()=>getPrevPage()}>Prev</button>
+    <div className='pagination'>
+      <button onClick={()=>getPrevPage()}>{"<"}</button>
       <ul>
       {pageNumbers.map(number=>(
         <li key={number}>
-            <a href="!#" onClick={()=>goToPage(number)}>
+            <a  href="!#"
+                id={number==page ? "current" : null} 
+                onClick={()=>goToPage(number)}>
               {number}
             </a>
         </li>
       ))}
       </ul>
-      <p>{page} of {nbPages}</p>
-      <button onClick={()=>getNextPage()}>Next</button>
+      {/* <p>{page} of {nbPages}</p> */}
+      <button onClick={()=>getNextPage()}>{">"}</button>
     </div>
   )
 }

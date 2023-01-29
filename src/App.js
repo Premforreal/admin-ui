@@ -10,6 +10,7 @@ function App() {
  const data  = useGlobalContext();
   return (
     <>
+    <h1>Admin UI</h1>
     <Search/>
     <Table/>
     <Pagination/>
