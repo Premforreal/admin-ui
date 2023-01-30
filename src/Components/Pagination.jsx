@@ -13,12 +13,11 @@ const Pagination = () => {
       <button onClick={()=>getPrevPage()}>{"<"}</button>
       <ul>
       {pageNumbers.map(number=>(
-        <li key={number}>
-            <a  href="!#"
-                id={number==page ? "current" : null} 
-                onClick={()=>goToPage(number)}>
-              {number}
-            </a>
+        <li key={number}
+            id={number==page ? "current" : null} 
+            onClick={()=>goToPage(number)}
+            >
+            {number}
         </li>
       ))}
       </ul>

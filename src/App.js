@@ -13,7 +13,6 @@ function App() {
     <h1>Admin UI</h1>
     <Search/>
     <Table/>
-    <Pagination/>
     </>    
   );
 }

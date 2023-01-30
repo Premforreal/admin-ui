@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import { useGlobalContext } from '../Context/Context';
 import Delete from '@mui/icons-material/DeleteOutline';
 import Edit from '@mui/icons-material/Edit';
+import Pagination from './Pagination';
 
 const Table = () => {
     const {data,IDARRAY,query,page,isLoading,removePost,removeMultiple} = useGlobalContext();
@@ -81,11 +82,17 @@ const Table = () => {
     return (
       <>
       {isEditing &&
-        <div className="editing">
+        <div className="popup">
           <form onSubmit={onSubmit}>
+            <p>Click to edit the required field</p>
+            <hr />
+            <label htmlFor="name">Name:</label>
             <input type='text' name='name' value={name} placeholder='Enter name' onChange={onChange} />
+            <label htmlFor="name">Email:</label>
             <input type='text' name='email' value={email} placeholder='Enter your email' onChange={onChange} />
+            <label htmlFor="name">Role:</label>
             <input type='text' name='role' value={role} placeholder='Enter your role' onChange={onChange} />
+            <button className='cancel' onClick={()=>setIsEditing(false)}>cancel</button>
             <button type='submit'>Submit</button>
           </form>
         </div>       
@@ -119,7 +126,7 @@ const Table = () => {
                   })
                   .slice(page*10-10,page*10)
                   .map((user)=>(
-                      <tr key={user.id} >
+                      <tr key={user.id} className = {checked[parseInt(user.id)-1] ? "selected" : null}>
                         <td>
                           <input  type="checkbox"
                                   checked={checked[parseInt(user.id)-1]}
@@ -140,14 +147,17 @@ const Table = () => {
               </table>
               </>
               }
-          <button className='delete-selected' 
-            onClick={()=>{
-                  setMasterCheck(false);
-                  setChecked(new Array(100).fill(false));
-                  removeMultiple(IDARRAY);
-                  IDARRAY.length = 0;
-                  }}>Delete selected
-          </button>
+          <div className="container">
+              <button className='delete-selected' 
+                  onClick={()=>{
+                        setMasterCheck(false);
+                        setChecked(new Array(100).fill(false));
+                        removeMultiple(IDARRAY);
+                        IDARRAY.length = 0;
+                        }}>Delete selected
+              </button>
+              <Pagination/>
+          </div>
       </>
     )
 };
