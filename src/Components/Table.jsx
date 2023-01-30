@@ -3,9 +3,10 @@ import { useGlobalContext } from '../Context/Context';
 import Delete from '@mui/icons-material/DeleteOutline';
 import Edit from '@mui/icons-material/Edit';
 import Pagination from './Pagination';
+import Loading from './Loading';
 
 const Table = () => {
-    let {data,newData,IDARRAY,query,page,nbPages,isLoading,removePost,removeMultiple} = useGlobalContext();
+    let {newData,IDARRAY,query,page,nbPages,isLoading,removePost,removeMultiple} = useGlobalContext();
     const [isEditing, setIsEditing] = useState(false);
     const [checked, setChecked] = useState(new Array(100).fill(false));
     const [masterCheck, setMasterCheck] = useState(false);
@@ -27,9 +28,9 @@ const Table = () => {
     function onSubmit(e){
       e.preventDefault();
       setIsEditing(false);
-      for (let i = 0; i < data.length; i++) {
-        if(formData.id===data[i].id){
-            data[i]=formData;
+      for (let i = 0; i < newData.length; i++) {
+        if(formData.id===newData[i].id){
+          newData[i]=formData;
         }
       }
     }
@@ -48,9 +49,9 @@ const Table = () => {
     function selectAll() {
       setMasterCheck(!masterCheck);
       if(!masterCheck){
-        for (let i = 0; i < data.length; i++) {
+        for (let i = 0; i < newData.length; i++) {
           if (i>=(page*10-10) && (i<page*10)) {
-            IDARRAY.push(data[i].id); 
+            IDARRAY.push(newData[i].id); 
           }
         }
       }
@@ -59,9 +60,16 @@ const Table = () => {
           IDARRAY.pop();
         }
       }
-      let arr =checked.map((item)=>!masterCheck);
-      setChecked(arr);
+
+      let count=0;
+      while (count<10) {
+        checked[parseInt(newData[count]?.id)-1]= !masterCheck;
+        count++;
+      }
+      setChecked(checked);
     }
+
+
 
     function checkHelper(id) {
       let arr = [];
@@ -74,10 +82,7 @@ const Table = () => {
     }
 
     if(isLoading){
-      return(
-      <>
-        Loading...
-      </>);
+      return(<Loading/>);
     }
     return (
       <>
@@ -97,7 +102,7 @@ const Table = () => {
           </form>
         </div>       
       }
-      {data &&
+      {newData &&
           <> 
               <table className='table'>
                   <thead>
