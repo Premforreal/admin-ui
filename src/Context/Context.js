@@ -1,13 +1,14 @@
 import axios from "axios";
-import React,{useContext,useReducer,useEffect} from "react";
+import React,{useContext,useReducer,useEffect,useLayoutEffect} from "react";
 import reducer from "./reducer";
 
 const initialState = {
     isLoading:true,
     query: "",
-    nbPages:0,
+    nbPages:1,
     page:1,
     data:[],
+    newData:[],
     IDARRAY:[]
 };
 const AppContext = React.createContext();
@@ -26,6 +27,7 @@ const AppProvider = ({children})=>{
                         type:"GET_STORIES",
                         payload:{
                             data:res.data,
+                            newData:res.data,
                             nbPages:Math.ceil(res.data.length/10),
                     }
                 })
@@ -38,6 +40,12 @@ const AppProvider = ({children})=>{
     useEffect(() => {
         getAPIdata();
       }, []);
+
+      function paginate() {
+        dispatch({
+            type:"PAGINATE"
+        });
+      }
 
     //to remove user
     function removePost(ID) {
@@ -55,11 +63,12 @@ const AppProvider = ({children})=>{
     }
 
     //search
-    function searchPost(SearchQuery) {
+    function searchUser(SearchQuery) {
         dispatch({
             type:"SEARCH_QUERY",
             payload:SearchQuery
         });
+        paginate();
     }
 
     //pagination
@@ -82,7 +91,7 @@ const AppProvider = ({children})=>{
 
     return(
         <AppContext.Provider 
-            value={{...state,removePost,removeMultiple,searchPost,getNextPage,getPrevPage,goToPage}}>
+            value={{...state,removePost,removeMultiple,searchUser,getNextPage,getPrevPage,goToPage}}>
             {children}
         </AppContext.Provider>
     )

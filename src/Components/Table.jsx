@@ -5,7 +5,7 @@ import Edit from '@mui/icons-material/Edit';
 import Pagination from './Pagination';
 
 const Table = () => {
-    const {data,IDARRAY,query,page,isLoading,removePost,removeMultiple} = useGlobalContext();
+    let {data,newData,IDARRAY,query,page,nbPages,isLoading,removePost,removeMultiple} = useGlobalContext();
     const [isEditing, setIsEditing] = useState(false);
     const [checked, setChecked] = useState(new Array(100).fill(false));
     const [masterCheck, setMasterCheck] = useState(false);
@@ -115,15 +115,7 @@ const Table = () => {
                     </tr> 
                   </thead>
                   <tbody>
-                  {data
-                  .filter((item)=>{
-                      const search = query.replaceAll(' ', '').toLowerCase();
-                      if( item.name.replaceAll(' ', '').toLowerCase().includes(search)  ||
-                          item.email.replaceAll(' ', '').toLowerCase().includes(search) ||
-                          item.role.replaceAll(' ', '').toLowerCase().includes(search)){
-                            return item;
-                          }
-                  })
+                  {newData
                   .slice(page*10-10,page*10)
                   .map((user)=>(
                       <tr key={user.id} className = {checked[parseInt(user.id)-1] ? "selected" : null}>
