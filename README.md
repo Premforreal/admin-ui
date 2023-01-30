@@ -2,7 +2,7 @@
 
 This is the solution to [Admin UI](https://www.geektrust.com/challenge/admin-ui) challenge from [Geektrust](https://www.geektrust.com).
 
-## Features--
+## Features
 
 1. Searching 
   searching with any field 
