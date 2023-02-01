@@ -1,5 +1,5 @@
 {
-  "homepage":"https://premforreal.github.io/admin-ui",
+  "homepage": "https://premforreal.github.io/admin-ui",
   "name": "admin-ui",
   "version": "0.1.0",
   "private": true,
@@ -20,8 +20,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "predeploy":" npm run build",
-    "deploy":"gh-pages -d build",
+    "predeploy": " npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
