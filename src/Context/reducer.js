@@ -38,6 +38,7 @@ const reducer=(state,action)=>{
             return{
                 ...state,
                 query: action.payload,
+                page:1,
                 newData:state.data.filter((item)=>{
                                   const search = action.payload.replaceAll(' ', '').toLowerCase();
                                   if( item.name.replaceAll(' ', '').toLowerCase().includes(search)  ||
