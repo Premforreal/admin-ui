@@ -1,6 +1,6 @@
 # Admin UI
 
-This is the solution to [Admin UI](https://www.geektrust.com/challenge/admin-ui) challenge from [Geektrust](https://www.geektrust.com).
+This is the solution for [Admin UI](https://www.geektrust.com/challenge/admin-ui) challenge from [Geektrust](https://www.geektrust.com).
 
 ## Features
 
